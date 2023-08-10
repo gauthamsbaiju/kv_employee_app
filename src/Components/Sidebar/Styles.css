@@ -1,0 +1,39 @@
+.sidebar{
+    background-color: white;
+    position: fixed ;
+    top: 77px;
+    left: 0px;
+    width: 300px;
+    height: 1019px;
+}
+
+.btn-wrapper{
+    display: flex;
+    align-items:center;
+    background-color: #03aeee;
+    height: 60px;
+    margin-left: 7%;
+    margin-top: 9%;
+    border-radius: 50px 0px 0px 50px;
+}
+
+.btn-icon{
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 15px;
+    height: 29px;
+    width: 29px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+}
+
+.btn-text{
+    height: 22px;
+    width: 127px;
+    color: white;
+    margin-left: 12px;
+    font-size: 16px;
+    font-weight:600;
+}

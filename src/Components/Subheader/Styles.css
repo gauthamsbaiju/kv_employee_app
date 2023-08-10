@@ -1,0 +1,89 @@
+.subheader{
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    position: fixed ;
+    top: 91px;
+    right: 24px;
+    width: 1573px;
+    height: 100px;
+
+    background: #FDFDFD 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #9D9D9D29;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.text{
+    top: 128px;
+left: 347px;
+width: 304px;
+height: 32px;
+
+text-align: left;
+font: normal normal bold 24px/32px Nunito Sans;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+padding-left: 24px;
+}
+
+.filter-text{
+margin-left: 600px ;
+padding-right: 20px;
+
+text-align: left;
+font: normal normal normal 18px/24px Nunito Sans;
+letter-spacing: 0px;
+color: black;
+opacity: 1;
+}
+
+.filter{
+    top: 126px;
+left: 1389px;
+width: 161px;
+height: 31px;
+margin-right: 68px;
+
+
+/* UI Properties */
+
+background: #EAF9FF 0% 0% no-repeat padding-box;
+border-radius: 50px;
+opacity: 1;
+}
+
+.icon{
+
+}
+
+.btn{
+    width: 259px;
+    height: 58px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0px;
+    /* UI Properties */
+    
+    text-align: left;
+    font: normal normal normal 20px/27px Nunito Sans;
+    letter-spacing: 0px;
+    background-color: #EAF9FF;
+    border-radius: 50px;
+    border: 0px;
+    /* opacity: 0.2; */
+}
+
+.butn-text{
+    color: black;
+    width: 200px;
+    padding-left: 10px;
+    /* font-size: 20px;  */
+    text-align: left;
+font: normal normal normal 20px Nunito Sans;
+/* letter-spacing: 0px; */
+}
