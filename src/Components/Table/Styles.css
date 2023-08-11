@@ -1,0 +1,24 @@
+.table{
+    width: 100%;
+    border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+
+.table-head{
+    background-color: #EAF9FF;
+    height: 55px;;
+    /* border-top: 22px;
+    padding-bottom: 16px; */
+}
+
+.body{
+    /* margin-top: 20px; */
+    background-color: white;
+    height: 58px;
+}
+
+.row{
+    height: 58px;
+    box-shadow: 0px 3px 6px #9D9D9D29;
+}
