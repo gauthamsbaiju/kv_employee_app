@@ -30,7 +30,7 @@ const Login: FC = () => {
   };
 
   return (
-    <div className='page-wrapper'>
+    <div className='main-page-wrapper'>
       <div className='left'>
         <img src='/assets/img/banner.png' alt='Banner' className='image'></img>
       </div>
