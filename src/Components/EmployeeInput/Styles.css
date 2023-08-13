@@ -3,8 +3,7 @@
     
 }
 
-.label{
-    margin-top: 0px;
+.label1{
 }
 
 .text-input{
@@ -15,4 +14,25 @@
     opacity: 1;
     padding-left: 10px;
     border-radius: 5px;
+    margin-top: 8px;
+}
+
+
+.address-input{
+    height: 45px;
+    width: 100%;
+    background: #FAFAFA 0% 0% no-repeat padding-box;
+    border: 1px solid #D9D9D9;
+    opacity: 1;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    margin-top: 8px;
+}
+
+.btndiv{
+    display: flex;
+    height: 35px;
+    justify-content: space-between;
+    width: calc(100% * 0.66);
 }

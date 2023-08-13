@@ -20,6 +20,25 @@ const Table: React.FC = () => {
 
   const handleClick = (id) => {
     navigate(`/employee/${id}`);
+    console.log(event);
+    // else navigate(`/employee/edit/${id}`);
+  };
+
+  const handleClick2 = (id) => {
+    event.preventDefault();
+    // event.stopPropagation();
+    console.log(event);
+    navigate(`/employee/edit/${id}`);
+  };
+
+  const del = (id) => {
+    event.preventDefault();
+    // event.stopPropagation();
+    employees.splice(
+      employees.findIndex((a) => a.id === id),
+      1
+    );
+    navigate(`/employee`);
   };
 
   return (
@@ -55,7 +74,23 @@ const Table: React.FC = () => {
               <Status value={item.isActive}></Status>
             </td>
             <td> {item.experience}</td>
-            <td> action</td>
+            <td>
+              <div
+                onClick={() => {
+                  handleClick2(item.id);
+                }}
+              >
+                Edit
+              </div>
+              <div
+                onClick={() => {
+                  del(item.id);
+                }}
+              >
+                {' '}
+                Delete
+              </div>
+            </td>
           </tr>
         ))}
       </tbody>

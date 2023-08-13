@@ -6,22 +6,27 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 import Subheader from '../../Components/Subheader/Subheader';
 import EmployeeInput from '../../Components/EmployeeInput/EmployeeInput';
 import Button from '../../Components/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import employees from '../../Dummy/Employees';
 // import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
 // import Table from '../../Components/Table/Table';
 
-const CreateEmployee: FC = () => {
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
-  const [exp, setExp] = useState('');
-  const [dept, setDept] = useState('');
-  const [role, setRole] = useState('');
-  const [status, setStatus] = useState(true);
-  const [add1, setAdd1] = useState('');
-  const [add2, setAdd2] = useState('');
-  const [add3, setAdd3] = useState('');
+const EditEmployee: FC = () => {
+  const { id } = useParams();
+  const employee = employees.find((item) => item.id === +id);
+  let stat = 'Active';
+
+  if (employee.isActive === false) stat = 'Inactive';
+  const [name, setName] = useState(employee.name);
+  const [date, setDate] = useState(employee.joiningDate);
+  const [exp, setExp] = useState(employee.experience);
+  const [dept, setDept] = useState(employee.department);
+  const [role, setRole] = useState(employee.role);
+  const [status, setStatus] = useState(employee.isActive);
+  const [add1, setAdd1] = useState(employee.address.house);
+  const [add2, setAdd2] = useState(employee.address.address_line_1);
+  const [add3, setAdd3] = useState(employee.address.address_line_2);
   const departments = ['Frontend', 'Backend', 'HR'];
   const roles = ['Admin', 'User'];
   const statuses = ['Active', 'Inactive'];
@@ -64,26 +69,43 @@ const CreateEmployee: FC = () => {
     else setAdd3(event.target.value);
   };
 
-  const create = (event) => {
+  const edit = (event) => {
     console.log(event);
     console.log('Submitted');
-    const emp = {
-      id: employees.length + 1,
-      name: name,
-      joiningDate: date,
-      experience: Number(exp),
-      isActive: status,
-      role: role,
-      department: dept,
-      address: {
-        house: add1,
-        address_line_1: add2,
-        address_line_2: add3
-      }
+    const emps = employees.filter((obj) => obj.id === +id);
+    const emp = emps[0];
+
+    emp.name = name;
+    emp.joiningDate = date;
+    emp.experience = Number(exp);
+    emp.isActive = status;
+    emp.role = role;
+    emp.department = dept;
+    const add = {
+      house: add1,
+      address_line_1: add2,
+      address_line_2: add3
     };
 
+    emp.address = add;
+
+    // employees[index] =
+    // const emp = {
+    //   id: employees.length + 1,
+    //   name: name,
+    //   joiningDate: date,
+    //   experience: Number(exp),
+    //   isActive: status,
+    //   role: role,
+    //   department: dept,
+    //   address: {
+    //     house: add1,
+    //     address_line_1: add2,
+    //     address_line_2: add3
+    //   }
+    // };
+
     console.log(emp);
-    employees.push(emp);
     navigate('/employee');
   };
 
@@ -104,11 +126,11 @@ const CreateEmployee: FC = () => {
       <Header />
       <Sidebar />
       <div className='list-wrapper'>
-        <Subheader title='Create Details' filter={false} button={false} text='' type='' />
+        <Subheader title='Edit Employee' filter={false} button={false} text='' type='' />
         <div className='card'>
           <EmployeeInput
             lable='Employee Name'
-            placeholder='Employee Name'
+            placeholder={employee.name}
             type='text'
             onChange={changeName}
             options={null}
@@ -116,7 +138,7 @@ const CreateEmployee: FC = () => {
 
           <EmployeeInput
             lable='Joining Date'
-            placeholder='Joining Date'
+            placeholder={employee.joiningDate}
             type='text'
             onChange={changeDate}
             options={null}
@@ -124,7 +146,7 @@ const CreateEmployee: FC = () => {
 
           <EmployeeInput
             lable='Experience'
-            placeholder='Experience'
+            placeholder={String(employee.experience)}
             type='text'
             onChange={changeExp}
             options={null}
@@ -132,7 +154,7 @@ const CreateEmployee: FC = () => {
 
           <EmployeeInput
             lable='Department'
-            placeholder='Choose Department'
+            placeholder={employee.department}
             type='dropdown'
             onChange={changeDept}
             options={departments}
@@ -140,7 +162,7 @@ const CreateEmployee: FC = () => {
 
           <EmployeeInput
             lable='Role'
-            placeholder='Choose Role'
+            placeholder={employee.role}
             type='dropdown'
             onChange={changeRole}
             options={roles}
@@ -148,7 +170,7 @@ const CreateEmployee: FC = () => {
 
           <EmployeeInput
             lable='Status'
-            placeholder='Status'
+            placeholder={stat}
             type='dropdown'
             onChange={changeStatus}
             options={statuses}
@@ -156,14 +178,21 @@ const CreateEmployee: FC = () => {
 
           <EmployeeInput
             lable='Address'
-            placeholder='Address'
+            placeholder={employee.address.house}
             type='address'
             onChange={changeAdd}
             options={null}
           />
-          <div className='filler'></div>
+          <EmployeeInput
+            lable='Employee ID'
+            placeholder={id}
+            type='id'
+            onChange={changeAdd}
+            options={null}
+          />
+          {/* <div className='filler2'></div> */}
           <div className='btns-wrapper'>
-            <Button label='Create' className='createbtn' onClick={create} type='submit'></Button>
+            <Button label='Edit' className='createbtn' onClick={edit} type='submit'></Button>
             <Button label='Cancel' className='cancelbtn' onClick={cancel} type='submit'></Button>
           </div>
         </div>
@@ -172,4 +201,4 @@ const CreateEmployee: FC = () => {
   );
 };
 
-export default CreateEmployee;
+export default EditEmployee;

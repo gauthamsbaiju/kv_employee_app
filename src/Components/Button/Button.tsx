@@ -10,7 +10,7 @@ type InputPropsType = {
 
 const Button: React.FC<InputPropsType> = (props) => {
   return (
-    <div>
+    <div className='button-wrapper'>
       <button className={props.className} onClick={props.onClick} type={props.type}>
         {props.label}
       </button>
