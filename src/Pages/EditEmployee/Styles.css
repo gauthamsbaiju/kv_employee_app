@@ -11,7 +11,8 @@
 }
 
 .filler2{
-    width: calc(100% * 0.44);
+    flex-basis: 28.5%;
+    height: 0;
 }
 
 .btns-wrapper{

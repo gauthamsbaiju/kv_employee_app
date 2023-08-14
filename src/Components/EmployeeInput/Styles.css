@@ -36,3 +36,7 @@
     justify-content: space-between;
     width: calc(100% * 0.66);
 }
+
+.text-input[disabled]{
+    background-color: #D1D1D1;
+}

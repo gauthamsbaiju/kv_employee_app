@@ -27,6 +27,11 @@ const EditEmployee: FC = () => {
   const [add1, setAdd1] = useState(employee.address.house);
   const [add2, setAdd2] = useState(employee.address.address_line_1);
   const [add3, setAdd3] = useState(employee.address.address_line_2);
+  const add = {
+    house: add1,
+    address_line_1: add1,
+    address_line_2: add2
+  };
   const departments = ['Frontend', 'Backend', 'HR'];
   const roles = ['Admin', 'User'];
   const statuses = ['Active', 'Inactive'];
@@ -88,24 +93,6 @@ const EditEmployee: FC = () => {
     };
 
     emp.address = add;
-
-    // employees[index] =
-    // const emp = {
-    //   id: employees.length + 1,
-    //   name: name,
-    //   joiningDate: date,
-    //   experience: Number(exp),
-    //   isActive: status,
-    //   role: role,
-    //   department: dept,
-    //   address: {
-    //     house: add1,
-    //     address_line_1: add2,
-    //     address_line_2: add3
-    //   }
-    // };
-
-    console.log(emp);
     navigate('/employee');
   };
 
@@ -114,12 +101,6 @@ const EditEmployee: FC = () => {
     console.log('Submitted');
     navigate('/employee');
   };
-
-  // const create = (event) => {
-  //   console.log(event);
-  //   console.log('Submitted');
-  //   navigate('/employee');
-  // };
 
   return (
     <div className='page-wrapper'>
@@ -182,7 +163,9 @@ const EditEmployee: FC = () => {
             type='address'
             onChange={changeAdd}
             options={null}
+            add={add}
           />
+
           <EmployeeInput
             lable='Employee ID'
             placeholder={id}
@@ -190,7 +173,7 @@ const EditEmployee: FC = () => {
             onChange={changeAdd}
             options={null}
           />
-          {/* <div className='filler2'></div> */}
+          <div className='filler2'></div>
           <div className='btns-wrapper'>
             <Button label='Edit' className='createbtn' onClick={edit} type='submit'></Button>
             <Button label='Cancel' className='cancelbtn' onClick={cancel} type='submit'></Button>

@@ -9,6 +9,11 @@ type InputPropsType = {
   placeholder: string;
   type: 'text' | 'dropdown' | 'address' | 'id';
   options: string[] | null;
+  add?: {
+    house: string;
+    address_line_1: string;
+    address_line_2: string;
+  };
 };
 
 const EmployeeInput: React.FC<InputPropsType> = (props) => {
@@ -67,19 +72,19 @@ const EmployeeInput: React.FC<InputPropsType> = (props) => {
         <>
           <input
             type={props.type}
-            placeholder={props.placeholder}
+            placeholder={props.add.house}
             className='address-input'
             onChange={(e) => props.onChange(e, 1)}
           ></input>
           <input
             type={props.type}
-            placeholder={props.placeholder}
+            placeholder={props.add.address_line_1}
             className='address-input'
             onChange={(e) => props.onChange(e, 2)}
           ></input>
           <input
             type={props.type}
-            placeholder={props.placeholder}
+            placeholder={props.add.address_line_2}
             className='address-input'
             onChange={(e) => props.onChange(e, 3)}
           ></input>

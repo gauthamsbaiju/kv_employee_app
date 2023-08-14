@@ -17,6 +17,7 @@ const tableHeader = [
 ];
 const Table: React.FC = () => {
   const navigate = useNavigate();
+  // const [emps, setEmps] = useState(employees);
 
   const handleClick = (id) => {
     navigate(`/employee/${id}`);
@@ -32,12 +33,13 @@ const Table: React.FC = () => {
   };
 
   const del = (id) => {
-    event.preventDefault();
-    // event.stopPropagation();
+    // event.preventDefault();
+    event.stopPropagation();
     employees.splice(
       employees.findIndex((a) => a.id === id),
       1
     );
+    console.log(employees);
     navigate(`/employee`);
   };
 
@@ -74,7 +76,7 @@ const Table: React.FC = () => {
               <Status value={item.isActive}></Status>
             </td>
             <td> {item.experience}</td>
-            <td>
+            <td className='btn-td'>
               <div
                 onClick={() => {
                   handleClick2(item.id);
