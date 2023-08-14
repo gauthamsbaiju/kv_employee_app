@@ -5,12 +5,16 @@ import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Subheader from '../../Components/Subheader/Subheader';
 import Card from '../../Components/Card/Card';
-import employees from '../../Dummy/Employees';
+// import employees from '../../Dummy/Employees';
+import { useSelector } from 'react-redux';
 // import Table from '../../Components/Table/Table';
 
 const Details: FC = () => {
   const { id } = useParams();
-  const employee = employees.find((item) => item.id === +id);
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
+  const employee = employeesData.find((item) => item.id === +id);
 
   return (
     <div className='page-wrapper'>
@@ -18,7 +22,7 @@ const Details: FC = () => {
       <Sidebar />
       <div className='list-wrapper'>
         <Subheader title='Employee Details' filter={false} button={true} text='Edit' type='Edit' />
-        <Card emp={employee} />
+        {employee !== undefined && <Card emp={employee} />}
       </div>
     </div>
   );

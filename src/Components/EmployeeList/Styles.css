@@ -24,5 +24,12 @@
 }
 
 .btn-td{
+    padding-top: 20px;
     display: flex;
+
+}
+
+.btn-div{
+    padding-right: 10px;
+
 }

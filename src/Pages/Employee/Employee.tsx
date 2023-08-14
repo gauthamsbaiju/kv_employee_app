@@ -3,7 +3,7 @@ import './Styles.css';
 import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Subheader from '../../Components/Subheader/Subheader';
-import Table from '../../Components/Table/Table';
+import EmployeeList from '../../Components/EmployeeList/EmployeeList';
 
 const Employee: FC = () => {
   return (
@@ -18,7 +18,7 @@ const Employee: FC = () => {
           text='Create Employee'
           type='Create'
         />
-        <Table />
+        <EmployeeList />
       </div>
     </div>
   );

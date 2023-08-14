@@ -1,8 +1,9 @@
 import React from 'react';
 import './Styles.css';
-import employees from '../../Dummy/Employees';
 import Status from '../Status/Status';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useDispatch } from 'react-redux';
 
 const tableHeader = [
   {
@@ -15,32 +16,39 @@ const tableHeader = [
     address: 'Address'
   }
 ];
-const Table: React.FC = () => {
+const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
-  // const [emps, setEmps] = useState(employees);
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
 
   const handleClick = (id) => {
     navigate(`/employee/${id}`);
     console.log(event);
-    // else navigate(`/employee/edit/${id}`);
   };
 
-  const handleClick2 = (id) => {
-    event.preventDefault();
-    // event.stopPropagation();
+  const handleClick2 = (event, id) => {
+    event.stopPropagation();
     console.log(event);
     navigate(`/employee/edit/${id}`);
   };
+  const dispatch = useDispatch();
 
-  const del = (id) => {
-    // event.preventDefault();
+  const del = (event, id) => {
     event.stopPropagation();
-    employees.splice(
-      employees.findIndex((a) => a.id === id),
-      1
-    );
-    console.log(employees);
-    navigate(`/employee`);
+    console.log(event);
+    const emp = employeesData.filter((item) => item.id !== id);
+
+    dispatch({
+      type: 'EMPLOYEE:DELETE',
+      payload: {
+        employee: emp
+      }
+    });
+
+    console.log('deleted: ');
+    console.log(emp);
+    // navigate(`/employee`);
   };
 
   return (
@@ -60,7 +68,7 @@ const Table: React.FC = () => {
         ))}
       </thead>
       <tbody className='body'>
-        {employees.map((item, index) => (
+        {employeesData.map((item, index) => (
           <tr
             className='row'
             key={index}
@@ -77,20 +85,22 @@ const Table: React.FC = () => {
             </td>
             <td> {item.experience}</td>
             <td className='btn-td'>
+              <img src='/assets/icons/Path 327.svg' alt='e'></img>
               <div
-                onClick={() => {
-                  handleClick2(item.id);
+                className='btn-div'
+                onClick={(event) => {
+                  del(event, item.id);
                 }}
               >
-                Edit
+                Delete
               </div>
               <div
-                onClick={() => {
-                  del(item.id);
+                onClick={(event) => {
+                  handleClick2(event, item.id);
                 }}
               >
                 {' '}
-                Delete
+                Edit
               </div>
             </td>
           </tr>
@@ -101,4 +111,4 @@ const Table: React.FC = () => {
   );
 };
 
-export default Table;
+export default EmployeeList;

@@ -8,6 +8,7 @@ import EmployeeInput from '../../Components/EmployeeInput/EmployeeInput';
 import Button from '../../Components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import employees from '../../Dummy/Employees';
+import { useDispatch, useSelector } from 'react-redux';
 // import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
 // import Table from '../../Components/Table/Table';
@@ -26,6 +27,9 @@ const CreateEmployee: FC = () => {
   const roles = ['Admin', 'User'];
   const statuses = ['Active', 'Inactive'];
   const navigate = useNavigate();
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
   const changeName = (event, n) => {
     setName(event.target.value);
     console.log(name);
@@ -63,12 +67,13 @@ const CreateEmployee: FC = () => {
     else if (n === 2) setAdd2(event.target.value);
     else setAdd3(event.target.value);
   };
+  const dispatch = useDispatch();
 
   const create = (event) => {
     console.log(event);
     console.log('Submitted');
     const emp = {
-      id: employees.length + 1,
+      id: employeesData.length + 1,
       name: name,
       joiningDate: date,
       experience: Number(exp),
@@ -82,6 +87,13 @@ const CreateEmployee: FC = () => {
       }
     };
 
+    dispatch({
+      type: 'EMPLOYEE:CREATE',
+      payload: {
+        employee: emp
+      }
+    });
+
     console.log(emp);
     employees.push(emp);
     navigate('/employee');
@@ -91,6 +103,11 @@ const CreateEmployee: FC = () => {
     console.log(event);
     console.log('Submitted');
     navigate('/employee');
+  };
+  const add = {
+    house: 'House',
+    address_line_1: 'Address line 1',
+    address_line_2: 'Address line 2'
   };
 
   // const create = (event) => {
@@ -160,6 +177,7 @@ const CreateEmployee: FC = () => {
             type='address'
             onChange={changeAdd}
             options={null}
+            add={add}
           />
           <div className='filler'></div>
           <div className='btns-wrapper'>

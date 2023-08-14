@@ -1,5 +1,6 @@
 import React from 'react';
 import './Styles.css';
+import { useNavigate } from 'react-router-dom';
 
 // type InputPropsType = {
 //   label: string;
@@ -9,9 +10,14 @@ import './Styles.css';
 // };
 
 const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/employee`);
+  };
+
   return (
     <div className='sidebar'>
-      <div className='btn-wrapper'>
+      <div className='btn-wrapper' onClick={handleClick}>
         <div className='btn-icon'>
           <img src='/assets/icons/employees.svg' alt='icon' className='icon'></img>
         </div>

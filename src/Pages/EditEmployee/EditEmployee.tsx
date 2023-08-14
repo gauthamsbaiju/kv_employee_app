@@ -7,14 +7,18 @@ import Subheader from '../../Components/Subheader/Subheader';
 import EmployeeInput from '../../Components/EmployeeInput/EmployeeInput';
 import Button from '../../Components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import employees from '../../Dummy/Employees';
+// import employees from '../../Dummy/Employees';
+import { useDispatch, useSelector } from 'react-redux';
 // import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
 // import Table from '../../Components/Table/Table';
 
 const EditEmployee: FC = () => {
   const { id } = useParams();
-  const employee = employees.find((item) => item.id === +id);
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
+  const employee = employeesData.find((item) => item.id === +id);
   let stat = 'Active';
 
   if (employee.isActive === false) stat = 'Inactive';
@@ -29,8 +33,8 @@ const EditEmployee: FC = () => {
   const [add3, setAdd3] = useState(employee.address.address_line_2);
   const add = {
     house: add1,
-    address_line_1: add1,
-    address_line_2: add2
+    address_line_1: add2,
+    address_line_2: add3
   };
   const departments = ['Frontend', 'Backend', 'HR'];
   const roles = ['Admin', 'User'];
@@ -38,6 +42,8 @@ const EditEmployee: FC = () => {
   const navigate = useNavigate();
   const changeName = (event, n) => {
     setName(event.target.value);
+    console.log("Name in event target: ");
+    console.log(event.target.value);
     console.log(name);
     console.log(n);
   };
@@ -71,28 +77,41 @@ const EditEmployee: FC = () => {
   const changeAdd = (event, n) => {
     if (n === 1) setAdd1(event.target.value);
     else if (n === 2) setAdd2(event.target.value);
-    else setAdd3(event.target.value);
+    else if (n === 3) setAdd3(event.target.value);
   };
 
+  const dispatch = useDispatch();
   const edit = (event) => {
     console.log(event);
     console.log('Submitted');
-    const emps = employees.filter((obj) => obj.id === +id);
-    const emp = emps[0];
-
-    emp.name = name;
-    emp.joiningDate = date;
-    emp.experience = Number(exp);
-    emp.isActive = status;
-    emp.role = role;
-    emp.department = dept;
     const add = {
       house: add1,
       address_line_1: add2,
       address_line_2: add3
     };
+    const emps = employeesData.map((obj) => {
+      if (obj.id === +id) {
+        obj.name = name;
+        obj.joiningDate = date;
+        obj.experience = Number(exp);
+        obj.isActive = status;
+        obj.role = role;
+        obj.department = dept;
+        obj.address = add;
+      }
 
-    emp.address = add;
+      return obj;
+    });
+
+    dispatch({
+      type: 'EMPLOYEE:EDIT',
+      payload: {
+        employee: emps
+      }
+    });
+
+    console.log('Edit: ');
+    console.log(emps);
     navigate('/employee');
   };
 
@@ -152,6 +171,7 @@ const EditEmployee: FC = () => {
           <EmployeeInput
             lable='Status'
             placeholder={stat}
+            defaultValue={stat}
             type='dropdown'
             onChange={changeStatus}
             options={statuses}
@@ -159,7 +179,13 @@ const EditEmployee: FC = () => {
 
           <EmployeeInput
             lable='Address'
-            placeholder={employee.address.house}
+            // defaultValue={
+            //   employee.address.house +
+            //   '_' +
+            //   employee.address.address_line_1 +
+            //   '_' +
+            //   employee.address.address_line_2
+            // }
             type='address'
             onChange={changeAdd}
             options={null}
