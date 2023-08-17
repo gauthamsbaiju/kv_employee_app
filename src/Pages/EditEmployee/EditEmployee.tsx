@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import './Styles.css';
 // import { useParams } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
@@ -7,38 +7,88 @@ import Subheader from '../../Components/Subheader/Subheader';
 import EmployeeInput from '../../Components/EmployeeInput/EmployeeInput';
 import Button from '../../Components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useGetEmployeeByIdQuery } from '../Details/api';
+import { useEditEmployeeMutation } from './api';
+import { useGetDepartmentListQuery } from '../../utils/Department/api';
+import { useGetRoleListQuery } from '../../utils/Role/api';
 // import employees from '../../Dummy/Employees';
-import { useDispatch, useSelector } from 'react-redux';
-import { editEmployee } from '../../employeeActions';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { editEmployee } from '../../employeeActions';
 // import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
 // import Table from '../../Components/Table/Table';
 
 const EditEmployee: FC = () => {
   const { id } = useParams();
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
-  const employee = employeesData.find((item) => item.id === +id);
+  const [e, setEmp] = useState({});
+  let employeesData;
+  //   const employeesData = useSelector((state: any) => {
+  //     return state.employees;
+  //   });
+  const { data: employeesData1, isSuccess } = useGetEmployeeByIdQuery(id);
+  const [editEmp, { isSuccess: edited }] = useEditEmployeeMutation();
+
+  console.log('EDITINGGG: ');
+  console.log(employeesData);
+  //   const employee = employeesData.find((item) => item.id === +id);
+  //   const employee = employeesData1?.data[0];
+
   let stat = 'Active';
 
-  if (employee.isActive === false) stat = 'Inactive';
-  const [name, setName] = useState(employee.name);
-  const [date, setDate] = useState(employee.joiningDate);
-  const [exp, setExp] = useState(employee.experience);
-  const [dept, setDept] = useState(employee.department);
-  const [role, setRole] = useState(employee.role);
-  const [status, setStatus] = useState(employee.isActive);
-  const [add1, setAdd1] = useState(employee.address.house);
-  const [add2, setAdd2] = useState(employee.address.address_line_1);
-  const [add3, setAdd3] = useState(employee.address.address_line_2);
+  //   if (employee.isActive === false) stat = 'Inactive';
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+  //   const [username, setUsername] = useState('');
+  //   const [password, setPassword] = useState('');
+  const [exp, setExp] = useState(0);
+  const [dept, setDept] = useState('');
+  const [dept2, setDept2] = useState('');
+  const [role, setRole] = useState('');
+  const [status, setStatus] = useState(true);
+  const [add1, setAdd1] = useState('');
+  const [add2, setAdd2] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  const [pincode, setPincode] = useState('');
   const add = {
-    house: add1,
-    address_line_1: add2,
-    address_line_2: add3
+    address_line_1: add1,
+    address_line_2: add2,
+    city: city,
+    state: state,
+    country: country,
+    pincode: pincode
   };
-  const departments = ['Frontend', 'Backend', 'HR'];
-  const roles = ['Admin', 'User'];
+  const employee = {
+    name: name,
+    joiningDate: date,
+    experience: Number(exp),
+    isActive: status,
+    role: role,
+    departmentId: dept,
+    address: {
+      address_line_1: add1,
+      address_line_2: add2,
+      city: city,
+      state: state,
+      country: country,
+      pincode: pincode
+    }
+  };
+  //   const departments = ['Frontend', 'Backend', 'HR'];
+  //   const roles = ['Admin', 'User'];
+  const { data: departmentData } = useGetDepartmentListQuery();
+  const departments = departmentData?.data || [];
+
+  const { data: roleData } = useGetRoleListQuery();
+  const roles = roleData?.data || [];
+  let deptIds;
+
+  //   if (departments) {
+  //     deptIds = departments.find((item) => item.name === dept);
+  //     console.log('IDS:::');
+  //     console.log(deptIds.id);
+  //   }
   const statuses = ['Active', 'Inactive'];
   const navigate = useNavigate();
   const changeName = (event, n) => {
@@ -78,39 +128,38 @@ const EditEmployee: FC = () => {
   const changeAdd = (event, n) => {
     if (n === 1) setAdd1(event.target.value);
     else if (n === 2) setAdd2(event.target.value);
-    else if (n === 3) setAdd3(event.target.value);
+    else if (n === 3) setCity(event.target.value);
+    else if (n === 4) setState(event.target.value);
+    else if (n === 5) setCountry(event.target.value);
+    else setPincode(event.target.value);
   };
-
-  const dispatch = useDispatch();
   const edit = (event) => {
     console.log(event);
     console.log('Submitted');
+    if (departments) {
+      deptIds = departments.find((item) => item.name === dept);
+      console.log('IDS:::');
+      console.log(deptIds.id);
+    }
     const emp = {
-      id: Number(id),
       name: name,
       joiningDate: date,
       experience: Number(exp),
       isActive: status,
       role: role,
-      department: dept,
+      departmentId: deptIds.id,
       address: {
-        house: add1,
-        address_line_1: add2,
-        address_line_2: add3
+        address_line_1: add1,
+        address_line_2: add2,
+        city: city,
+        state: state,
+        country: country,
+        pincode: pincode
       }
     };
 
-    dispatch(editEmployee(emp));
-
-    // dispatch({
-    //   type: 'EMPLOYEE:EDIT',
-    //   payload: {
-    //     employee: emps
-    //   }
-    // });
-
-    console.log('Edit: ');
-    console.log(emp);
+    editEmp({ id, body: emp });
+    if (edited) console.log('Edit success: ');
     navigate('/employee');
   };
 
@@ -119,6 +168,32 @@ const EditEmployee: FC = () => {
     console.log('Submitted');
     navigate('/employee');
   };
+
+  useEffect(() => {
+    if (employeesData1 && isSuccess) {
+      setEmp(employeesData1.data);
+      console.log('INSIDE USE EFFECT: ');
+      console.log(employeesData1.data[0]);
+      console.log(e);
+      setName(employeesData1.data[0].name);
+      setDate(employeesData1.data[0].joiningDate);
+      setExp(employeesData1.data[0].experience);
+      setDept(employeesData1.data[0].departmentId);
+      setRole(employeesData1.data[0].role);
+      setStatus(employeesData1.data[0].isActive);
+      setAdd1(employeesData1.data[0].address.address_line_1);
+      setAdd2(employeesData1.data[0].address.address_line_2);
+      setCity(employeesData1.data[0].address.city);
+      setState(employeesData1.data[0].address.state);
+      setCountry(employeesData1.data[0].address.country);
+      setPincode(employeesData1.data[0].address.pincode);
+      if (departments) {
+        deptIds = departments.find((item) => item.id === employeesData1.data[0].departmentId);
+        setDept2(deptIds.name);
+      }
+    }
+    // else setEmp()
+  }, [employeesData1, departments]);
 
   return (
     <div className='page-wrapper'>
@@ -153,7 +228,7 @@ const EditEmployee: FC = () => {
 
           <EmployeeInput
             lable='Department'
-            placeholder={employee.department}
+            placeholder={dept2}
             type='dropdown'
             onChange={changeDept}
             options={departments}

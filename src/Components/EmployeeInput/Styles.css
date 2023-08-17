@@ -40,3 +40,9 @@
 .text-input[disabled]{
     background-color: #D1D1D1;
 }
+
+.address-wrapper{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}

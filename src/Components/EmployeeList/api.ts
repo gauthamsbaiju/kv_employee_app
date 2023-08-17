@@ -13,15 +13,16 @@ interface Employee {
   isActive: boolean;
 }
 
-export const employeeApi = baseApi.injectEndpoints({
+export const deleteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getEmployeeList: builder.query<{ data: Employee[] }, void>({
-      query: () => ({
-        url: '/employees'
+    deleteEmployee: builder.mutation<{ data: Employee[] }, string>({
+      query: (id) => ({
+        url: `/employees/${id}`,
+        method: 'DELETE'
       }),
-      providesTags: [TagTypes.EMP_LIST]
+      invalidatesTags: [TagTypes.EMP_LIST]
     })
   })
 });
 
-export const { useGetEmployeeListQuery } = employeeApi;
+export const { useDeleteEmployeeMutation } = deleteApi;

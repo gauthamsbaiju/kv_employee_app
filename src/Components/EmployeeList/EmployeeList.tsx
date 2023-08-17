@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Styles.css';
 import Status from '../Status/Status';
 import { useNavigate } from 'react-router-dom';
 // import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useGetEmployeeListQuery } from '../../Pages/Employee/api';
+import { useDeleteEmployeeMutation } from './api';
 // import { useGetEmployeesQuery } from '../../services/employeeService';
 
 const tableHeader = [
@@ -26,6 +27,7 @@ const EmployeeList: React.FC = () => {
   // });
 
   const { data: employeesData1 } = useGetEmployeeListQuery();
+  const [deleteEmp, { isSuccess }] = useDeleteEmployeeMutation();
   const employeesData = employeesData1?.data || [];
 
   console.log('DATAAAAAAAAA: ', employeesData);
@@ -39,24 +41,31 @@ const EmployeeList: React.FC = () => {
     console.log(event);
     navigate(`/employee/edit/${id}`);
   };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const del = (event, id) => {
     event.stopPropagation();
     console.log(event);
-    const emp = employeesData?.filter((item) => item.id !== id);
+    // const emp = employeesData?.filter((item) => item.id !== id);
+    deleteEmp(id);
 
-    dispatch({
-      type: 'EMPLOYEE:DELETE',
-      payload: {
-        employee: emp
-      }
-    });
+    // dispatch({
+    //   type: 'EMPLOYEE:DELETE',
+    //   payload: {
+    //     employee: emp
+    //   }
+    // });
 
     console.log('deleted: ');
-    console.log(emp);
-    // navigate(`/employee`);
+    // console.log(emp);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('deleted');
+      navigate('/employee');
+    }
+  }, [isSuccess]);
 
   return (
     // <div className='table-wrapper'>
@@ -92,9 +101,14 @@ const EmployeeList: React.FC = () => {
             </td>
             <td> {item.experience}</td>
             <td className='btn-td'>
-              <img src='/assets/icons/delete.png' alt='e' className='del-icon' onClick={(event) => {
+              <img
+                src='/assets/icons/delete.png'
+                alt='e'
+                className='del-icon'
+                onClick={(event) => {
                   del(event, item.id);
-                }}></img>
+                }}
+              ></img>
               {/* <div
                 className='btn-div'
                 onClick={(event) => {
@@ -103,17 +117,35 @@ const EmployeeList: React.FC = () => {
               >
                 Delete
               </div> */}
-              <img src='/assets/icons/edit.svg' alt='e' className='edit-icon' onClick={(event) => {
+              {/* <img
+                src='/assets/icons/edit.svg'
+                alt='e'
+                className='edit-icon'
+                onClick={(event) => {
                   del(event, item.id);
-                }}></img>
-              <div
+                }}
+              ></img> */}
+              <svg
+                fill='#10AAC0'
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                onClick={(event) => {
+                  handleClick2(event, item.id);
+                }}
+                className='edit-icon'
+              >
+                <path d='M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z' />
+              </svg>
+              {/* <div
                 onClick={(event) => {
                   handleClick2(event, item.id);
                 }}
               >
                 {' '}
                 Edit
-              </div>
+              </div> */}
             </td>
           </tr>
         ))}

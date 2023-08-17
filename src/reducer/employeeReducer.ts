@@ -1,78 +1,74 @@
-import { addEmployee, editEmployee } from '../employeeActions';
+import { addEmployee } from '../employeeActions';
 import { createReducer } from '@reduxjs/toolkit';
 import Employee from '../types';
 
 const initialState = [
   {
-    id: 1,
+    // id: '1',
     name: 'Abc',
     joiningDate: '13/05/2015',
     experience: 20,
     isActive: true,
     role: 'user',
-    department: 'Frontend',
+    departmentId: '1',
     address: {
-      house: 'bcdfg',
       address_line_1: 'Edac3fdg453dsvhira',
-      address_line_2: 'Kakdfgkasdv34535nad'
-      // city: 'Ernaku34sdgv53lam',
-      // state: 'Goa',
-      // country: 'Isvndia',
-      // pincode: '00112300000'
+      address_line_2: 'Kakdfgkasdv34535nad',
+      city: 'Ernaku34sdgv53lam',
+      state: 'Goa',
+      country: 'Isvndia',
+      pincode: '00112300000'
     }
   },
   {
-    id: 2,
+    // id: '2',
     name: 'Abc',
     joiningDate: '13/05/2015',
     experience: 20,
     isActive: false,
     role: 'user',
-    department: 'Frontend',
+    departmentId: '1',
     address: {
-      house: 'bcdfg',
       address_line_1: 'Edac3fdg453dsvhira',
-      address_line_2: 'Kakdfgkasdv34535nad'
-      // city: 'Ernaku34sdgv53lam',
-      // state: 'Goa',
-      // country: 'Isvndia',
-      // pincode: '00112300000'
+      address_line_2: 'Kakdfgkasdv34535nad',
+      city: 'Ernaku34sdgv53lam',
+      state: 'Goa',
+      country: 'Isvndia',
+      pincode: '00112300000'
     }
   },
   {
-    id: 3,
+    // id: '3',
     name: 'Abc',
     joiningDate: '13/05/2015',
     experience: 20,
     isActive: true,
     role: 'user',
-    department: 'Frontend',
+    departmentId: '1',
     address: {
-      house: 'bcdfg',
       address_line_1: 'Edac3fdg453dsvhira',
-      address_line_2: 'Kakdfgkasdv34535nad'
-      // city: 'Ernaku34sdgv53lam',
-      // state: 'Goa',
-      // country: 'Isvndia',
-      // pincode: '00112300000'
+      address_line_2: 'Kakdfgkasdv34535nad',
+      city: 'Ernaku34sdgv53lam',
+      state: 'Goa',
+      country: 'Isvndia',
+      pincode: '00112300000'
     }
   },
   {
-    id: 4,
+    // id: '4',
     name: 'Xyz',
     joiningDate: '21/08/2016',
     experience: 9,
     isActive: true,
     role: 'user',
-    department: 'Backend',
+    departmentId: '1',
     address: {
-      house: '8D',
       address_line_1: 'sdf',
-      address_line_2: 'sdfqwe'
-      // city: 'Ernaku34sdgv53lam',
-      // state: 'Goa',
-      // country: 'Isvndia',
-      // pincode: '00112300000'
+      address_line_2: 'sdfqwe',
+      city: 'Ernaku34sdgv53lam',
+      state: 'Goa',
+      country: 'Isvndia',
+      pincode: '00112300000'
     }
   }
 ] as Array<Employee>;
@@ -84,15 +80,15 @@ const employeeReducer = createReducer(initialState, (builder) => {
 
     return state;
   });
-  builder.addCase(editEmployee, (state, action) => {
-    console.log('action: ', action);
-    const newState = state.map((item) => {
-      if (item.id === +action.payload.id) return action.payload;
-      else return item;
-    });
+  // builder.addCase(editEmployee, (state, action) => {
+  //   console.log('action: ', action);
+  //   const newState = state.map((item) => {
+  //     if (item.id === action.payload.id) return action.payload;
+  //     else return item;
+  //   });
 
-    return newState;
-  });
+  //   return newState;
+  // });
   // builder.addCase(deleteEmployee, (state, action) => {
   //   const newState = state.map((item) => {
   //     if (item.id !== +action.payload.id) return item;

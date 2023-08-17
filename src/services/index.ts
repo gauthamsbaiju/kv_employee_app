@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { TagTypes } from '../types';
 
 const baseApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -16,7 +17,7 @@ const baseApi = createApi({
   refetchOnMountOrArgChange: true,
   refetchOnReconnect: true,
   endpoints: () => ({}),
-  tagTypes: []
+  tagTypes: [TagTypes.EMP_LIST]
 });
 
 export default baseApi;

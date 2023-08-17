@@ -35,6 +35,7 @@ const Details: FC = () => {
       <div className='list-wrapper'>
         <Subheader title='Employee Details' filter={false} button={true} text='Edit' type='Edit' />
         {e[0] !== undefined && <Card emp={e[0]} />}
+        {e[0] === undefined && <div>Employee not found</div>}
       </div>
     </div>
   );

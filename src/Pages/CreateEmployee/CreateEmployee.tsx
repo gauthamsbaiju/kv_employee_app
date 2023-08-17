@@ -1,21 +1,19 @@
-import { useState, type FC } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import './Styles.css';
-// import { useParams } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Subheader from '../../Components/Subheader/Subheader';
 import EmployeeInput from '../../Components/EmployeeInput/EmployeeInput';
 import Button from '../../Components/Button/Button';
 import { useNavigate } from 'react-router-dom';
-// import employees from '../../Dummy/Employees';
-import { useDispatch, useSelector } from 'react-redux';
-import { addEmployee } from '../../employeeActions';
-// import Card from '../../Components/Card/Card';
-// import employees from '../../Dummy/Employees';
-// import Table from '../../Components/Table/Table';
+import { useCreateEmployeeMutation } from './api';
+import { useGetDepartmentListQuery } from '../../utils/Department/api';
+import { useGetRoleListQuery } from '../../utils/Role/api';
 
 const CreateEmployee: FC = () => {
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [date, setDate] = useState('');
   const [exp, setExp] = useState('');
   const [dept, setDept] = useState('');
@@ -23,17 +21,25 @@ const CreateEmployee: FC = () => {
   const [status, setStatus] = useState(true);
   const [add1, setAdd1] = useState('');
   const [add2, setAdd2] = useState('');
-  const [add3, setAdd3] = useState('');
-  const departments = ['Frontend', 'Backend', 'HR'];
-  const roles = ['admin', 'user'];
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  const [pincode, setPincode] = useState('');
   const statuses = ['Active', 'Inactive'];
   const navigate = useNavigate();
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
   const changeName = (event, n) => {
     setName(event.target.value);
     console.log(name);
+    console.log(n);
+  };
+  const changeUsername = (event, n) => {
+    setUsername(event.target.value);
+    console.log(username);
+    console.log(n);
+  };
+  const changePassword = (event, n) => {
+    setPassword(event.target.value);
+    console.log(password);
     console.log(n);
   };
   const changeDate = (event, n) => {
@@ -66,41 +72,62 @@ const CreateEmployee: FC = () => {
   const changeAdd = (event, n) => {
     if (n === 1) setAdd1(event.target.value);
     else if (n === 2) setAdd2(event.target.value);
-    else setAdd3(event.target.value);
+    else if (n === 3) setCity(event.target.value);
+    else if (n === 4) setState(event.target.value);
+    else if (n === 5) setCountry(event.target.value);
+    else setPincode(event.target.value);
   };
-  const dispatch = useDispatch();
+  const [createEmp, { isSuccess }] = useCreateEmployeeMutation();
+
+  const { data: departmentData } = useGetDepartmentListQuery();
+  const departments = departmentData?.data || [];
+
+  const { data: roleData } = useGetRoleListQuery();
+  const roles = roleData?.data || [];
+
+  let deptIds;
 
   const create = (event) => {
     console.log(event);
     console.log('Submitted');
+
+    if (departments) {
+      deptIds = departments.find((item) => item.name === dept);
+      console.log('IDS:::');
+      console.log(deptIds.id);
+    }
+
     const emp = {
-      id: employeesData.length + 1,
       name: name,
+      username: username,
+      password: password,
       joiningDate: date,
       experience: Number(exp),
       isActive: status,
       role: role,
-      department: dept,
+      departmentId: deptIds.id,
       address: {
-        house: add1,
-        address_line_1: add2,
-        address_line_2: add3
+        address_line_1: add1,
+        address_line_2: add2,
+        city: city,
+        state: state,
+        country: country,
+        pincode: pincode
       }
     };
 
-    // dispatch({
-    //   type: 'EMPLOYEE:CREATE',
-    //   payload: {
-    //     employee: emp
-    //   }
-    // });
-
-    dispatch(addEmployee(emp));
-
-    console.log(emp);
-    // employees.push(emp);
-    navigate('/employee');
+    createEmp(emp);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('Emp created :');
+      navigate('/employee');
+    } else {
+      console.log('Failed: ');
+      console.log(isSuccess);
+    }
+  }, [isSuccess]);
 
   const cancel = (event) => {
     console.log(event);
@@ -108,16 +135,13 @@ const CreateEmployee: FC = () => {
     navigate('/employee');
   };
   const add = {
-    house: 'House',
     address_line_1: 'Address line 1',
-    address_line_2: 'Address line 2'
+    address_line_2: 'Address line 2',
+    city: 'city',
+    state: 'state',
+    country: 'country',
+    pincode: 'pincode'
   };
-
-  // const create = (event) => {
-  //   console.log(event);
-  //   console.log('Submitted');
-  //   navigate('/employee');
-  // };
 
   return (
     <div className='page-wrapper'>
@@ -181,6 +205,20 @@ const CreateEmployee: FC = () => {
             onChange={changeAdd}
             options={null}
             add={add}
+          />
+          <EmployeeInput
+            lable='Username'
+            placeholder='Username'
+            type='text'
+            onChange={changeUsername}
+            options={null}
+          />
+          <EmployeeInput
+            lable='Password'
+            placeholder='Password'
+            type='password'
+            onChange={changePassword}
+            options={null}
           />
           <div className='filler'></div>
           <div className='btns-wrapper'>
