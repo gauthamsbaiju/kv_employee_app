@@ -7,8 +7,9 @@ import Subheader from '../../Components/Subheader/Subheader';
 import EmployeeInput from '../../Components/EmployeeInput/EmployeeInput';
 import Button from '../../Components/Button/Button';
 import { useNavigate } from 'react-router-dom';
-import employees from '../../Dummy/Employees';
+// import employees from '../../Dummy/Employees';
 import { useDispatch, useSelector } from 'react-redux';
+import { addEmployee } from '../../employeeActions';
 // import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
 // import Table from '../../Components/Table/Table';
@@ -24,7 +25,7 @@ const CreateEmployee: FC = () => {
   const [add2, setAdd2] = useState('');
   const [add3, setAdd3] = useState('');
   const departments = ['Frontend', 'Backend', 'HR'];
-  const roles = ['Admin', 'User'];
+  const roles = ['admin', 'user'];
   const statuses = ['Active', 'Inactive'];
   const navigate = useNavigate();
   const employeesData = useSelector((state: any) => {
@@ -87,15 +88,17 @@ const CreateEmployee: FC = () => {
       }
     };
 
-    dispatch({
-      type: 'EMPLOYEE:CREATE',
-      payload: {
-        employee: emp
-      }
-    });
+    // dispatch({
+    //   type: 'EMPLOYEE:CREATE',
+    //   payload: {
+    //     employee: emp
+    //   }
+    // });
+
+    dispatch(addEmployee(emp));
 
     console.log(emp);
-    employees.push(emp);
+    // employees.push(emp);
     navigate('/employee');
   };
 

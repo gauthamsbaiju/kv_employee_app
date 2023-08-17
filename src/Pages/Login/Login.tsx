@@ -1,14 +1,19 @@
-import { useState, type FC } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import './Styles.css';
 import Button from '../../Components/Button/Button';
 import Input from '../../Components/Input/Input';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from './api';
 
 const Login: FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(0);
   const navigate = useNavigate();
+  const [login, { data, isSuccess }] = useLoginMutation();
+
+  // console.log('data: ', data);
+  // console.log('isSuccess: ', isSuccess);
   const changeUsername = (event) => {
     setUsername(event.target.value);
     console.log(username);
@@ -21,13 +26,29 @@ const Login: FC = () => {
 
   const submit = (event) => {
     console.log(event);
-    console.log('Submitted');
+    // console.log('Submitted');
 
-    if (username && password) navigate('/employee');
+    if (username && password)
+      login({
+        username,
+        password
+      });
     else if (!username && !password) setError(3);
     else if (!username) setError(1);
     else if (!password) setError(2);
   };
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      localStorage.setItem('AuthToken', data.data[0].token);
+      console.log("Token is :");
+      console.log(data.data[0].token);
+      navigate('/employee');
+    } else {
+      console.log('Failed: ');
+      console.log(data, isSuccess);
+    }
+  }, [isSuccess, data]);
 
   return (
     <div className='main-page-wrapper'>

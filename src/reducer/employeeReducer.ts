@@ -1,3 +1,7 @@
+import { addEmployee, editEmployee } from '../employeeActions';
+import { createReducer } from '@reduxjs/toolkit';
+import Employee from '../types';
+
 const initialState = [
   {
     id: 1,
@@ -71,28 +75,58 @@ const initialState = [
       // pincode: '00112300000'
     }
   }
-];
+] as Array<Employee>;
 
-const employeeReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'EMPLOYEE:CREATE': {
-      const newState = [...state, action.payload.employee];
+const employeeReducer = createReducer(initialState, (builder) => {
+  builder.addCase(addEmployee, (state, action) => {
+    console.log('action: ', action);
+    state = [...state, action.payload];
 
-      return newState;
-    }
-    case 'EMPLOYEE:DELETE': {
-      const newState = action.payload.employee;
+    return state;
+  });
+  builder.addCase(editEmployee, (state, action) => {
+    console.log('action: ', action);
+    const newState = state.map((item) => {
+      if (item.id === +action.payload.id) return action.payload;
+      else return item;
+    });
 
-      return newState;
-    }
-    case 'EMPLOYEE:EDIT': {
-      const newState = action.payload.employee;
+    return newState;
+  });
+  // builder.addCase(deleteEmployee, (state, action) => {
+  //   const newState = state.map((item) => {
+  //     if (item.id !== +action.payload.id) return item;
+  //   });
 
-      return newState;
-    }
-    default:
-      return state;
-  }
-};
+  //   return newState;
+  // });
+});
+
+// const employeeReducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case 'EMPLOYEE:CREATE': {
+//       console.log(action.payload);
+
+//       const newState = [...state, action.payload];
+
+//       return newState;
+//     }
+//     case 'EMPLOYEE:DELETE': {
+//       const newState = action.payload.employee;
+
+//       return newState;
+//     }
+//     case 'EMPLOYEE:EDIT': {
+//       const newState = state.map((item) => {
+//         if (item.id === +action.payload.employee.id) return action.payload.employee;
+//         else return item;
+//       });
+
+//       return newState;
+//     }
+//     default:
+//       return state;
+//   }
+// };
 
 export default employeeReducer;

@@ -19,7 +19,7 @@ type InputPropsType = {
 
 const EmployeeInput: React.FC<InputPropsType> = (props) => {
   console.log('def val: ');
-  console.log(props.defaultValue);
+  // console.log(props.defaultValue);
   // const navigate = useNavigate();
   // const create = (event) => {
   //   console.log(event);

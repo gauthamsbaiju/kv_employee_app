@@ -9,6 +9,7 @@ import Button from '../../Components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 // import employees from '../../Dummy/Employees';
 import { useDispatch, useSelector } from 'react-redux';
+import { editEmployee } from '../../employeeActions';
 // import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
 // import Table from '../../Components/Table/Table';
@@ -42,7 +43,7 @@ const EditEmployee: FC = () => {
   const navigate = useNavigate();
   const changeName = (event, n) => {
     setName(event.target.value);
-    console.log("Name in event target: ");
+    console.log('Name in event target: ');
     console.log(event.target.value);
     console.log(name);
     console.log(n);
@@ -84,34 +85,32 @@ const EditEmployee: FC = () => {
   const edit = (event) => {
     console.log(event);
     console.log('Submitted');
-    const add = {
-      house: add1,
-      address_line_1: add2,
-      address_line_2: add3
+    const emp = {
+      id: Number(id),
+      name: name,
+      joiningDate: date,
+      experience: Number(exp),
+      isActive: status,
+      role: role,
+      department: dept,
+      address: {
+        house: add1,
+        address_line_1: add2,
+        address_line_2: add3
+      }
     };
-    const emps = employeesData.map((obj) => {
-      if (obj.id === +id) {
-        obj.name = name;
-        obj.joiningDate = date;
-        obj.experience = Number(exp);
-        obj.isActive = status;
-        obj.role = role;
-        obj.department = dept;
-        obj.address = add;
-      }
 
-      return obj;
-    });
+    dispatch(editEmployee(emp));
 
-    dispatch({
-      type: 'EMPLOYEE:EDIT',
-      payload: {
-        employee: emps
-      }
-    });
+    // dispatch({
+    //   type: 'EMPLOYEE:EDIT',
+    //   payload: {
+    //     employee: emps
+    //   }
+    // });
 
     console.log('Edit: ');
-    console.log(emps);
+    console.log(emp);
     navigate('/employee');
   };
 
@@ -171,7 +170,6 @@ const EditEmployee: FC = () => {
           <EmployeeInput
             lable='Status'
             placeholder={stat}
-            defaultValue={stat}
             type='dropdown'
             onChange={changeStatus}
             options={statuses}

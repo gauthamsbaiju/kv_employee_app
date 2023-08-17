@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { useEffect, type FC, useState } from 'react';
 import './Styles.css';
 import { useParams } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
@@ -6,15 +6,27 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 import Subheader from '../../Components/Subheader/Subheader';
 import Card from '../../Components/Card/Card';
 // import employees from '../../Dummy/Employees';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useGetEmployeeByIdQuery } from './api';
 // import Table from '../../Components/Table/Table';
 
 const Details: FC = () => {
   const { id } = useParams();
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
-  const employee = employeesData.find((item) => item.id === +id);
+  const [e, setEmp] = useState({});
+  // const employeesData = useSelector((state: any) => {
+  //   return state.employees;
+  // });
+  const { data: employeesData1 } = useGetEmployeeByIdQuery(id);
+  // const employee = employeesData1?.data || [];
+
+  console.log('Details: ');
+  console.log(employeesData1);
+  // console.log(employee);
+  // const employee = employeesData.find((item) => item.id === +id);
+  useEffect(() => {
+    if (employeesData1 && employeesData1.data) setEmp(employeesData1.data);
+    // else setEmp()
+  }, [employeesData1]);
 
   return (
     <div className='page-wrapper'>
@@ -22,7 +34,7 @@ const Details: FC = () => {
       <Sidebar />
       <div className='list-wrapper'>
         <Subheader title='Employee Details' filter={false} button={true} text='Edit' type='Edit' />
-        {employee !== undefined && <Card emp={employee} />}
+        {e[0] !== undefined && <Card emp={e[0]} />}
       </div>
     </div>
   );

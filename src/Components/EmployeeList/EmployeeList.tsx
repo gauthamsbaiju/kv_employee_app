@@ -2,8 +2,10 @@ import React from 'react';
 import './Styles.css';
 import Status from '../Status/Status';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+// import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
+import { useGetEmployeeListQuery } from '../../Pages/Employee/api';
+// import { useGetEmployeesQuery } from '../../services/employeeService';
 
 const tableHeader = [
   {
@@ -18,10 +20,15 @@ const tableHeader = [
 ];
 const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
 
+  // const employeesData = useSelector((state: any) => {
+  //   return state.employees;
+  // });
+
+  const { data: employeesData1 } = useGetEmployeeListQuery();
+  const employeesData = employeesData1?.data || [];
+
+  console.log('DATAAAAAAAAA: ', employeesData);
   const handleClick = (id) => {
     navigate(`/employee/${id}`);
     console.log(event);
@@ -37,7 +44,7 @@ const EmployeeList: React.FC = () => {
   const del = (event, id) => {
     event.stopPropagation();
     console.log(event);
-    const emp = employeesData.filter((item) => item.id !== id);
+    const emp = employeesData?.filter((item) => item.id !== id);
 
     dispatch({
       type: 'EMPLOYEE:DELETE',
@@ -68,7 +75,7 @@ const EmployeeList: React.FC = () => {
         ))}
       </thead>
       <tbody className='body'>
-        {employeesData.map((item, index) => (
+        {employeesData?.map((item, index) => (
           <tr
             className='row'
             key={index}
@@ -85,15 +92,20 @@ const EmployeeList: React.FC = () => {
             </td>
             <td> {item.experience}</td>
             <td className='btn-td'>
-              <img src='/assets/icons/Path 327.svg' alt='e'></img>
-              <div
+              <img src='/assets/icons/delete.png' alt='e' className='del-icon' onClick={(event) => {
+                  del(event, item.id);
+                }}></img>
+              {/* <div
                 className='btn-div'
                 onClick={(event) => {
                   del(event, item.id);
                 }}
               >
                 Delete
-              </div>
+              </div> */}
+              <img src='/assets/icons/edit.svg' alt='e' className='edit-icon' onClick={(event) => {
+                  del(event, item.id);
+                }}></img>
               <div
                 onClick={(event) => {
                   handleClick2(event, item.id);
