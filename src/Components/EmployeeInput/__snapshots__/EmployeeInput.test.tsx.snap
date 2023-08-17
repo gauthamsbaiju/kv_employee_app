@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for employee input component Test for snapshot rendered 1`] = `
+<div
+  class="input-wrapper1"
+  data-testid="EmpDetails-test"
+>
+  <label
+    class="label1"
+    data-testid="EmpDetailslabel-test"
+  >
+     Emp Input
+  </label>
+  <input
+    class="text-input"
+    data-testid="EmpDetailsProps-test"
+    placeholder="Emp Input"
+    type="text"
+  />
+</div>
+`;

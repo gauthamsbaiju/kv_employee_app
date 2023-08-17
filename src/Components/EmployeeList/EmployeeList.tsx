@@ -66,6 +66,7 @@ const EmployeeList: React.FC = () => {
       navigate('/employee');
     }
   }, [isSuccess]);
+  const role = localStorage.getItem('Role');
 
   return (
     // <div className='table-wrapper'>
@@ -100,16 +101,17 @@ const EmployeeList: React.FC = () => {
               <Status value={item.isActive}></Status>
             </td>
             <td> {item.experience}</td>
-            <td className='btn-td'>
-              <img
-                src='/assets/icons/delete.png'
-                alt='e'
-                className='del-icon'
-                onClick={(event) => {
-                  del(event, item.id);
-                }}
-              ></img>
-              {/* <div
+            {role === 'admin' && (
+              <td className='btn-td'>
+                <img
+                  src='/assets/icons/delete.png'
+                  alt='e'
+                  className='del-icon'
+                  onClick={(event) => {
+                    del(event, item.id);
+                  }}
+                ></img>
+                {/* <div
                 className='btn-div'
                 onClick={(event) => {
                   del(event, item.id);
@@ -117,7 +119,7 @@ const EmployeeList: React.FC = () => {
               >
                 Delete
               </div> */}
-              {/* <img
+                {/* <img
                 src='/assets/icons/edit.svg'
                 alt='e'
                 className='edit-icon'
@@ -125,20 +127,20 @@ const EmployeeList: React.FC = () => {
                   del(event, item.id);
                 }}
               ></img> */}
-              <svg
-                fill='#10AAC0'
-                xmlns='http://www.w3.org/2000/svg'
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                onClick={(event) => {
-                  handleClick2(event, item.id);
-                }}
-                className='edit-icon'
-              >
-                <path d='M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z' />
-              </svg>
-              {/* <div
+                <svg
+                  fill='#10AAC0'
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  onClick={(event) => {
+                    handleClick2(event, item.id);
+                  }}
+                  className='edit-icon'
+                >
+                  <path d='M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z' />
+                </svg>
+                {/* <div
                 onClick={(event) => {
                   handleClick2(event, item.id);
                 }}
@@ -146,7 +148,8 @@ const EmployeeList: React.FC = () => {
                 {' '}
                 Edit
               </div> */}
-            </td>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

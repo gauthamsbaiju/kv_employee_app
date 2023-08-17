@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for employee details card If snapshot rendered 1`] = `
+<div
+  class="card-wrapper"
+  data-testid="card-test"
+>
+  <div
+    class="details-wrapper"
+  >
+    <div
+      class="details-label"
+      data-testid="employeeDetailsLabel-test"
+    >
+      Employee Name
+    </div>
+    <div
+      data-testid="employeeDetailsValue-test"
+    >
+      Abc
+    </div>
+  </div>
+  <div
+    class="details-wrapper"
+  >
+    <div
+      class="details-label"
+      data-testid="employeeDetailsLabel-test"
+    >
+      Joining Date
+    </div>
+    <div
+      data-testid="employeeDetailsValue-test"
+    >
+      12/12/12
+    </div>
+  </div>
+  <div
+    class="details-wrapper"
+  >
+    <div
+      class="details-label"
+      data-testid="employeeDetailsLabel-test"
+    >
+      Experience
+    </div>
+    <div
+      data-testid="employeeDetailsValue-test"
+    >
+      4
+    </div>
+  </div>
+  <div
+    class="details-wrapper"
+  >
+    <div
+      class="details-label"
+      data-testid="employeeDetailsLabel-test"
+    >
+      Role
+    </div>
+    <div
+      data-testid="employeeDetailsValue-test"
+    >
+      user
+    </div>
+  </div>
+  <div
+    class="details-wrapper"
+  >
+    <div
+      class="details-label"
+      data-testid="employeeDetailsLabel-test"
+    >
+      Status
+    </div>
+    <div
+      class="active"
+      data-testid="status-test"
+    >
+      active
+    </div>
+    <div
+      data-testid="employeeDetailsValue-test"
+    />
+  </div>
+  <div
+    class="details-wrapper"
+  >
+    <div
+      class="details-label"
+      data-testid="employeeDetailsLabel-test"
+    >
+      Employee ID
+    </div>
+    <div
+      data-testid="employeeDetailsValue-test"
+    >
+      1
+    </div>
+  </div>
+</div>
+`;

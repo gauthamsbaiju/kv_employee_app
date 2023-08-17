@@ -4,7 +4,7 @@ import { Department } from '../../types';
 // import { useNavigate } from 'react-router-dom';
 // import Button from '../Button/Button';
 
-type InputPropsType = {
+export type EmpInputPropsType = {
   onChange: (e, n) => void;
   lable: string;
   placeholder?: string;
@@ -21,7 +21,7 @@ type InputPropsType = {
   defaultValue?: string;
 };
 
-const EmployeeInput: React.FC<InputPropsType> = (props) => {
+const EmployeeInput: React.FC<EmpInputPropsType> = (props) => {
   console.log('def val: ');
   // console.log(props.defaultValue);
   // const navigate = useNavigate();
@@ -45,8 +45,10 @@ const EmployeeInput: React.FC<InputPropsType> = (props) => {
   }
 
   return (
-    <div className='input-wrapper1'>
-      <label className='label1'>{props.lable}</label>
+    <div className='input-wrapper1' data-testid='EmpDetails-test'>
+      <label className='label1' data-testid='EmpDetailslabel-test'>
+        {props.lable}
+      </label>
 
       {props.type === 'text' && (
         <input
@@ -55,6 +57,7 @@ const EmployeeInput: React.FC<InputPropsType> = (props) => {
           // value={props.defaultValue}
           className='text-input'
           onChange={(e) => props.onChange(e, 0)}
+          data-testid='EmpDetailsProps-test'
         ></input>
       )}
 

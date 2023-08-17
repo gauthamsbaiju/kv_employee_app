@@ -2,23 +2,20 @@ import React from 'react';
 import './Styles.css';
 import Status from '../Status/Status';
 
-type EmpPropsType = {
+export type EmpPropsType = {
   lable: string;
   value: string | number | boolean;
   type: string;
 };
 
-// const mapper = {
-//     "name": "Empoloyee Name";
-
-// }
-
 const EmployeeDetails: React.FC<EmpPropsType> = (props) => {
   return (
     <div className='details-wrapper'>
-      <div className='details-label'>{props.lable}</div>
+      <div className='details-label' data-testid='employeeDetailsLabel-test'>
+        {props.lable}
+      </div>
       {props.type === 'status' && <Status value={Boolean(props.value)} />}
-      <div>{props.value}</div>
+      <div data-testid='employeeDetailsValue-test'>{props.value}</div>
     </div>
   );
 };

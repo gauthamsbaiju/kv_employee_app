@@ -2,7 +2,7 @@ import React from 'react';
 import './Styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-type SubheaderPropsType = {
+export type SubheaderPropsType = {
   title: string;
   filter: boolean;
   button: boolean;
@@ -19,12 +19,15 @@ const Subheader: React.FC<SubheaderPropsType> = (props) => {
   const handleClick2 = () => {
     if (props.type === 'Edit') navigate(`/employee/edit/${id}`);
   };
+  const role = localStorage.getItem('Role');
 
   return (
-    <div className='subheader-wrapper'>
+    <div className='subheader-wrapper' data-testid='subheader-test'>
       <div className='subheader'>
-        <div className='text'>{props.title}</div>
-        <div className='rightelem'>
+        <div className='text' data-testid='subheaderTitle-test'>
+          {props.title}
+        </div>
+        <div className='rightelem' data-testid='subheaderFilter-test'>
           {props.filter && (
             <>
               <div className='filter-text'>Filter By</div>
@@ -32,7 +35,7 @@ const Subheader: React.FC<SubheaderPropsType> = (props) => {
             </>
           )}
 
-          {props.button && props.type !== 'Edit' && (
+          {role === 'admin' && props.button && props.type !== 'Edit' && (
             <div className='empbtn'>
               <button
                 className='circle'
@@ -45,7 +48,7 @@ const Subheader: React.FC<SubheaderPropsType> = (props) => {
               <div className='butn-text'>{props.text}</div>
             </div>
           )}
-          {props.button && props.type === 'Edit' && (
+          {role === 'admin' && props.button && props.type === 'Edit' && (
             <div className='empbtn'>
               <button
                 className='circle'
@@ -55,7 +58,9 @@ const Subheader: React.FC<SubheaderPropsType> = (props) => {
               >
                 <img src='/assets/icons/Path 327.svg' alt='e'></img>
               </button>
-              <div className='butn-text'>{props.text}</div>
+              <div className='butn-text' data-testid='subheaderText-test'>
+                {props.text}
+              </div>
             </div>
           )}
         </div>

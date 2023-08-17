@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for employee details component Test for snapshot of data rendered 1`] = `
+<div
+  data-testid="employeeDetailsValue-test"
+>
+  Abc
+</div>
+`;
+
+exports[`Test for employee details component Test for snapshot of label rendered 1`] = `
+<div
+  class="details-label"
+  data-testid="employeeDetailsLabel-test"
+>
+  Name
+</div>
+`;

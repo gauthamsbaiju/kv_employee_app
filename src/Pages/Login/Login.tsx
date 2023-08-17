@@ -41,6 +41,7 @@ const Login: FC = () => {
   useEffect(() => {
     if (isSuccess && data) {
       localStorage.setItem('AuthToken', data.data[0].token);
+      localStorage.setItem('Role', data.data[0].employeeDetails.role);
       console.log('Token is :');
       console.log(data.data[0].token);
       navigate('/employee');

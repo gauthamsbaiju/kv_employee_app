@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for input component Test for snapshot rendered 1`] = `
+<input
+  class="input"
+  data-testid="input-test"
+  placeholder="Input"
+  type="text"
+/>
+`;

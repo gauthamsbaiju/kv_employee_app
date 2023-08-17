@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for subheader component Test for snapshot rendered 1`] = `
+<div
+  class="subheader-wrapper"
+  data-testid="subheader-test"
+>
+  <div
+    class="subheader"
+  >
+    <div
+      class="text"
+      data-testid="subheaderTitle-test"
+    >
+      Subheader
+    </div>
+    <div
+      class="rightelem"
+      data-testid="subheaderFilter-test"
+    >
+      <div
+        class="filter-text"
+      >
+        Filter By
+      </div>
+      <div
+        class="filter"
+      />
+    </div>
+  </div>
+</div>
+`;

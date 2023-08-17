@@ -3,7 +3,7 @@ import './Styles.css';
 import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
 // import employees from '../../Dummy/Employees';
 
-type CardPropsType = {
+export type CardPropsType = {
   emp: {
     id: number;
     name: string;
@@ -21,7 +21,7 @@ const Card: React.FC<CardPropsType> = (props) => {
   details.map((item) => console.log(item));
 
   return (
-    <div className='card-wrapper'>
+    <div className='card-wrapper' data-testid='card-test'>
       {/* {details.map((item, index) => (
         <EmployeeDetails lable={item[0]} value={item[1]} key={index} />
       ))} */}
