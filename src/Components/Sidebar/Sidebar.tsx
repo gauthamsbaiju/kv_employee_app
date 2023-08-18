@@ -16,7 +16,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className='sidebar'>
+    <div className='sidebar' data-testid='sidebar-test'>
       <div className='btn-wrapper' onClick={handleClick}>
         <div className='btn-icon'>
           <img src='/assets/icons/employees.svg' alt='icon' className='icon'></img>

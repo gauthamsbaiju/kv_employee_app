@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for sidebar component Test for snapshot rendered 1`] = `
+<div
+  class="sidebar"
+  data-testid="sidebar-test"
+>
+  <div
+    class="btn-wrapper"
+  >
+    <div
+      class="btn-icon"
+    >
+      <img
+        alt="icon"
+        class="icon"
+        src="/assets/icons/employees.svg"
+      />
+    </div>
+    <div
+      class="btn-text"
+    >
+      Employee List
+    </div>
+  </div>
+</div>
+`;

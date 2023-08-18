@@ -10,7 +10,7 @@ import './Styles.css';
 
 const Header: React.FC = () => {
   return (
-    <div className='header'>
+    <div className='header' data-testid='header-test'>
       <div className='logo-wrapper'>
         <img src='/assets/img/kv-logo.png' className='logo'></img>
       </div>
