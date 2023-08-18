@@ -1,0 +1,8 @@
+.details-wrapper{
+    width: calc(100% * (1/5) - 10px - 1px);
+    
+}
+
+.details-label{
+    padding-bottom: 10px;
+}

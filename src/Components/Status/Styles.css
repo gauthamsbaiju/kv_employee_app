@@ -1,0 +1,17 @@
+.active{
+    width: 111px;
+    height: 30px;
+    background: #D3F4BE ;
+    border-radius: 20px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.inactive{  
+    width: 111px;
+    height: 30px;
+    background: #FFBFBF 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    text-align: center;
+    padding-top: 5px;
+}

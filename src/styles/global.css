@@ -14,6 +14,28 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 70px;
   height: 100vh;
+}
+
+.left{
+  background-color: #03AEEE10;
+  height: 94vh;
+  width: 92vb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right{
+  background-color: white;
+  height: 100vh;
+  width: 100vb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.login-wrapper{
+  width: 40vb;
 }

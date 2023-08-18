@@ -1,0 +1,19 @@
+.page-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    padding-left: 300px;
+    padding-top: 77px;
+}
+
+.list-wrapper{
+    height: 100%;
+    padding: 25px;
+    width: 100%;
+    background-color: #FAFAFA;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start; */
+}

@@ -1,0 +1,28 @@
+.main-page-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-wrapper{
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+.image{
+    border-radius: 50%;
+    border: 42px solid white;
+}
+
+.logo{
+  height: 15%;
+  width: 45%;
+}
+
+.error-msg{
+  margin-top: 5px;
+  font-size: 15px;
+  color: red;
+}
